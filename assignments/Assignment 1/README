@@ -1,0 +1,15 @@
+Program     :   Comp 2401 Assignment 1
+ Author     :   Nikhil Sharma 101284046
+   Date     :   4 October 2022
+Program     :   This program does take the student number as well as gpas of then
+                student and print them out in the order we got it and also
+                in descending order and if by some how it encounter any error
+                it will give the error message
+
+Source files:  a1-posted.c
+Header files: n/a
+  Data Files: n/a
+
+Compilation : gcc -o a1 a1-posted.c
+
+launching   : ./a1
