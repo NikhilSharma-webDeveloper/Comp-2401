@@ -1,0 +1,14 @@
+Program:      Comp 2401 tutorial 3
+ Author:      Nikhil Sharma (101284046)
+   Date:      4 October 2022
+Purpose:      This program will take input from the user and collect the
+              student numbers as well as gPAs print them without sorting then
+              sort them in descending order and print it
+
+Source files: t03.c
+Header files: n/a
+  Data files: n/a
+
+Compilation :  gcc -o t3 ./t03.c
+
+Launching   : ./t3 
