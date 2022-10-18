@@ -19,10 +19,18 @@ int main()
   return(0);
 }
 
+/*
+In this function we are taking the input by the user for both student_id as well
+as GPA and if user enter -1 for any of the value or if the array become full then
+the program stop and return the number of elements in the array
+
+@return nOfElements
+
+@input/@output student_ids, gpas
+*/
 int getStuData(int *student_ids, float *gpas){
   int nOfElements=0;
   int flag=0;
-
   do{
     printf("Please enter the student number and GPA of the student \n");
     int student_id=0;
@@ -39,6 +47,12 @@ int getStuData(int *student_ids, float *gpas){
   return nOfElements;
 }
 
+/*
+This function will print the gpas as well as student_id of the student side by
+side
+
+@input student_ids, gpas, nOfElements
+*/
 void printStuData(int *student_ids, float *gpas, int nOfElements){
 
   printf("Student Numbers   GPA\n");

@@ -30,7 +30,6 @@ int main()
   int choice=0;
   int nOfBytes=0;
 
-
   printf("\nYou may:\n");
   printf("  (1) Encrypt a message \n");
   printf("  (2) Decrypt a message \n");
@@ -43,25 +42,24 @@ int main()
     return 0;
 
   switch (choice) {
-
     case 1:
       printf("\nEnter Plain Text :\n");
       nOfBytes=readBytes(input, MAX_BUF);
       encode(input,output,nOfBytes);
       printf("\n--------CIPHERTEXT-------\n\n");
       for(int i=0;i<nOfBytes;i++){
-        printf("%03d ",output[i]);
+        printf("%03d ",*(output+i));
       }
       break;
 
     case 2:
-      printf("Enther the CIPHERTEXT <end with -1>\n");
+      printf("\nEnther the CIPHERTEXT <end with -1>\n");
       nOfBytes=readBytes(input, MAX_BUF);
+      printf("\n----PLAIN TEXT-----\n");
       decode(input,output,nOfBytes);
       printf("%s\n",output);
       break;
   }
-
   return(0);
 }
 
@@ -88,14 +86,13 @@ void decode(unsigned char* ct, unsigned char* pt, int nOfBytes){
         case 2:
         targetData+=(ct[i]-'0');
       }
-    //  printf("%d %d ",i,targetData);
+
     }
 
   }else{
     break;
   }
 
-  printf("  %d \n",targetData);
   pt[j++]=decryptByte(targetData,counter,initialValue);
   counter++;
   initialValue=targetData;
@@ -122,32 +119,40 @@ unsigned char decryptByte(unsigned char ct, unsigned char counter, unsigned char
   return tempByte;
 }
 
-void printBits(unsigned char c){
-  printf("Printing Bits\n");
-  for(int i=0;i<8;i++){
-    printf("%d ",(getBit(c,i)));
-  }
-}
-
+/*
+Function:  encode
+Purpose:   This function is used to convert the plain texts to CIPHERTEXT
+     in:   pt (Input by the user),size
+     in:   size
+*/
 void encode(unsigned char* pt, unsigned char* ct, int size){
     unsigned char counter=CTR;
     unsigned char initialValue=IV;
 
     for(int i=0;i<size;i++){
       counter=processCtr(counter,KEY);
-      ct[i]=encryptByte(pt[i],counter,initialValue);
+      *(ct+i)=encryptByte(*(pt+i),counter,initialValue);
       counter++;
-      initialValue=ct[i];
+      initialValue=*(ct+i);
     }
 }
-
+/*
+Function:  processCtr
+Purpose:   This function is used to process the counter value which later used
+           by the encode function to generate CIPHERTEXT
+     in:   counter
+     in:   key
+ return:   returns the updated counter value
+*/
 unsigned char processCtr(unsigned char counter, unsigned char key){
   unsigned char tempCounter=counter;
-
   int start=((counter&1)==1)?1:0;
+
   for(int i=start;i<8;i=i+2){
+
     int result=(getBit(counter,i) ^ getBit(key,i));
     int checkBitInkey=getBit(tempCounter,i);
+
     if((result==0) && (checkBitInkey==1)){
       tempCounter=clearBit(tempCounter,i);
     }else if(result==1 && checkBitInkey==0){
@@ -159,8 +164,17 @@ unsigned char processCtr(unsigned char counter, unsigned char key){
   return tempCounter;
 }
 
+/*
+Function:  encryptByte
+Purpose:   This method does encrypt every bit and return it to the encode function
+     in:   inputByte
+     in:   counter
+     in:   initialValue
+ return:   returns encrypted byte to the encode function
+*/
 unsigned char encryptByte(unsigned char inputByte, unsigned char counter,unsigned char initialValue){
   unsigned char tempByte=0;
+
   for(int i=0;i<8;i++){
     int counterCurrentBit=getBit(counter,i);
     int result=0;
@@ -169,7 +183,6 @@ unsigned char encryptByte(unsigned char inputByte, unsigned char counter,unsigne
     }else{
       result=(getBit(inputByte,i)^getBit(initialValue,7-i));
     }
-
     if(result==1){
       tempByte=setBit(tempByte,i);
     }
@@ -230,4 +243,18 @@ unsigned char setBit(unsigned char c, int n)
 unsigned char clearBit(unsigned char c, int n)
 {
     return (c & (~(1 << n)));
+}
+
+/*
+Function:  printBits
+Purpose:   help only for debugging purposes not any use in the
+           whole program just print all the bits of the character and basically
+           helps you for debugging
+     in:   c
+*/
+void printBits(unsigned char c){
+  printf("Printing Bits\n");
+  for(int i=0;i<8;i++){
+    printf("%d ",(getBit(c,i)));
+  }
 }

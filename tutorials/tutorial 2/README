@@ -1,0 +1,22 @@
+## Author
+Nikhil Sharma  101284046
+
+## Purpose
+The purpose of the program is to take the input of both
+student ID as well as GPA and print them on the screen
+after following several constrains
+
+## List of Source Files
+t02.c
+
+
+## The exact compilation command is
+gcc -o t02 t02.c
+
+
+## linux instruction
+Please open the terminal go to the subdirectory where you have the file and
+run the compilation command .
+
+## Executation command 
+./t02
