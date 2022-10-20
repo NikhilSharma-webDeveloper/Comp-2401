@@ -22,6 +22,21 @@ unsigned char setBit(unsigned char, int);
 unsigned char clearBit(unsigned char, int);
 
 
+/*
+Function:   main
+ Purpose:   This is the main function of the program which will first of all
+            prompt the user either they want to encode the message or decode
+            it.
+
+            If user select to encode it, it will read the input from the user
+            and encode the message and print the encrypted text or cypher
+            text
+
+            If user select to decode the message, it will read the cypher text
+            by the user convert it to the plain text and print it on the screen
+
+  return:   int or the success flag
+*/
 int main()
 {
   char str[8];
@@ -63,7 +78,25 @@ int main()
   return(0);
 }
 
+/*
+Function:  decode
+Purpose:   This method does decrypt the whole message input by the user,
+           so first of all it as well know we get cyphertext in the combination
+           of three character eg 023 so each character in stored in particular
+           index in the input array so first of all this method will join the Data
+           from the index eg 0 for 0 index, 2 from first index, 3 from third index
+           and make 023 then send this particular cyphertext to decodebyte which
+           will decode this particular byte return the corresponding character
+           and then we store in the index in the plain text array
 
+           Moreover this method will ignore empty spaces and stop converting as
+           soon as we get -1 in the input
+
+
+     in:   ct (cipher text array address)
+    out:   pt (plain text array address)
+     in:   initialValue (number of byte user entered)
+*/
 void decode(unsigned char* ct, unsigned char* pt, int nOfBytes){
 
   unsigned char counter=CTR;
@@ -74,7 +107,7 @@ void decode(unsigned char* ct, unsigned char* pt, int nOfBytes){
 
     int targetData=0;
 
-    if(ct[i]!='-'){
+    if(ct[i]!='-' && ct[i+1]!=1){
       for(int k=0;k<=2;k++,i++){
       switch (k) {
         case 0:
@@ -86,23 +119,28 @@ void decode(unsigned char* ct, unsigned char* pt, int nOfBytes){
         case 2:
         targetData+=(ct[i]-'0');
       }
-
     }
-
   }else{
     break;
   }
-
   pt[j++]=decryptByte(targetData,counter,initialValue);
   counter++;
   initialValue=targetData;
   }
   pt[j]='\0';
-
 }
 
+/*
+Function:  decryptByte
+Purpose:   This method does decrypt every bit and return it to the decode function
+     in:   ct (cipher text)
+     in:   counter
+     in:   initialValue
+ return:   returns decrypt byte to the decrypt function
+*/
 unsigned char decryptByte(unsigned char ct, unsigned char counter, unsigned char initialValue){
   unsigned char tempByte=0;
+
   for(int i=0;i<8;i++){
     int counterCurrentBit=getBit(counter,i);
     int result=0;
@@ -111,11 +149,11 @@ unsigned char decryptByte(unsigned char ct, unsigned char counter, unsigned char
     }else{
       result=(getBit(ct,i)^getBit(initialValue,7-i));
     }
-
     if(result==1){
       tempByte=setBit(tempByte,i);
     }
   }
+
   return tempByte;
 }
 

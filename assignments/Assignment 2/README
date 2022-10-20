@@ -1,0 +1,15 @@
+Program     :   Comp 2401 Assignment 2
+ Author     :   Nikhil Sharma 101284046
+   Date     :   19 October 2022
+Program     :   This program will help to either encrypt or decrypt any message
+                entered by the user and the input message should not be more
+                than 256 character and if you want to use more then just increase
+                the size of the array
+
+Source files:  assignment2.c
+Header files:  n/a
+  Data Files:  n/a
+
+Compilation :  gcc -o result ./assignment2.c
+
+launching   : ./result
