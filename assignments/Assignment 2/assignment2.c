@@ -11,6 +11,7 @@ void printBits(unsigned char);
 void encode(unsigned char*, unsigned char*, int);
 void decode(unsigned char*, unsigned char*, int);
 
+unsigned char gettingCypherValue(unsigned char *);
 unsigned char processCtr(unsigned char, unsigned char);
 unsigned char encryptByte(unsigned char, unsigned char, unsigned char);
 unsigned char decryptByte(unsigned char, unsigned char, unsigned char);
@@ -69,7 +70,13 @@ int main()
 
     case 2:
       printf("\nEnther the CIPHERTEXT <end with -1>\n");
-      nOfBytes=readBytes(input, MAX_BUF);
+      unsigned char tempData[3];
+      scanf("%s",tempData);
+      while(strcmp(tempData,"-1")!=0){
+        input[nOfBytes++]=gettingCypherValue(tempData);
+        scanf("%s",tempData);
+      }
+
       printf("\n----PLAIN TEXT-----\n");
       decode(input,output,nOfBytes);
       printf("%s\n",output);
@@ -79,19 +86,31 @@ int main()
 }
 
 /*
+Function:  gettingCypherValue
+Purpose:   This method does convert the input cypher byte in form of string to
+           unsigned char and return to the main function
+     in:   cypherByte
+ return:   Return the input string byte entered by the user to unsigned character
+*/
+unsigned char gettingCypherValue(unsigned char *cypherByte){
+  unsigned char tempData=0;
+  for(int i=0;i<3;i++){
+    switch (i) {
+      case 0:
+      tempData+=(10*10*(cypherByte[i]-'0'));
+      break;
+      case 1:
+      tempData+=(10*(cypherByte[i]-'0'));
+      break;
+      case 2:
+      tempData+=(cypherByte[i]-'0');
+    }
+  }
+  return tempData;
+}
+/*
 Function:  decode
-Purpose:   This method does decrypt the whole message input by the user,
-           so first of all it as well know we get cyphertext in the combination
-           of three character eg 023 so each character in stored in particular
-           index in the input array so first of all this method will join the Data
-           from the index eg 0 for 0 index, 2 from first index, 3 from third index
-           and make 023 then send this particular cyphertext to decodebyte which
-           will decode this particular byte return the corresponding character
-           and then we store in the index in the plain text array
-
-           Moreover this method will ignore empty spaces and stop converting as
-           soon as we get -1 in the input
-
+Purpose:   This method does decrypt the whole message input by the user
 
      in:   ct (cipher text array address)
     out:   pt (plain text array address)
@@ -104,28 +123,9 @@ void decode(unsigned char* ct, unsigned char* pt, int nOfBytes){
   int j=0;
   for(int i=0;i<nOfBytes;i++){
     counter=processCtr(counter,KEY);
-
-    int targetData=0;
-
-    if(ct[i]!='-' && ct[i+1]!=1){
-      for(int k=0;k<=2;k++,i++){
-      switch (k) {
-        case 0:
-        targetData+=(10*10*(ct[i]-'0'));
-        break;
-        case 1:
-        targetData+=(10*(ct[i]-'0'));
-        break;
-        case 2:
-        targetData+=(ct[i]-'0');
-      }
-    }
-  }else{
-    break;
-  }
-  pt[j++]=decryptByte(targetData,counter,initialValue);
-  counter++;
-  initialValue=targetData;
+    pt[j++]=decryptByte(ct[i],counter,initialValue);
+    counter++;
+    initialValue=ct[i];
   }
   pt[j]='\0';
 }
