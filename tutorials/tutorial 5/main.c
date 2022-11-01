@@ -4,16 +4,21 @@
 #include "defs.h"
 
 int main(){
-  AnimalArrayType *allAnimalsPtr;
+  AnimalArrayType allAnimals;
+
+  AnimalArrayType *allAnimalsPtr=&allAnimals;
 
   initAnimalArray(allAnimalsPtr,2);
   loadAnimalData(allAnimalsPtr);
+
+  printAnimals(allAnimalsPtr);
 
   int choice=-1;
   int *choicePtr=&choice;
   while(choice!=0){
     printMenu(choicePtr);
   }
+  free(allAnimalsPtr->elements);
   return(0);
 }
 

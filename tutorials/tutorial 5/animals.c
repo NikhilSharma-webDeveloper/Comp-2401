@@ -29,19 +29,31 @@ void copyAnimal(AnimalType *newAn, AnimalType* oldAn){
 }
 void addAnimal(AnimalArrayType* arr, AnimalType* an){
   if(arr->size==arr->capacity){
-    AnimalArrayType* tempArr;
-    initAnimalArray(tempArr,(arr->capacity)*2);
+    AnimalArrayType tempArr;
+    AnimalArrayType* tempArrPtr=&tempArr;
+    initAnimalArray(tempArrPtr,(arr->capacity)*2);
+
     for(int i=0;i<arr->capacity;i++){
-      copyAnimal(((tempArr->elements)+i), ((arr->elements)+i));
+      copyAnimal(((tempArrPtr->elements)+i), ((arr->elements)+i));
     }
     cleanupAnimalArray(arr);
-    arr=tempArr;
+
+    arr->elements=tempArrPtr->elements;
+    arr->capacity=tempArrPtr->capacity;
   }
-
-
-//  (arr->elements)+(arr.size)=an;
+    copyAnimal(&((arr->elements)[(arr->size)]),an);
+    arr->size=++(arr->size);
 }
 
 void cleanupAnimalArray(AnimalArrayType* arr){
-  free(arr);
+  free(arr->elements);
+}
+
+void printAnimals(AnimalArrayType* data){
+  printf("Animal Id \t Species \t Name \t Gender \t age\n");
+  for(int i=0;i<data->size;i++){
+    AnimalType *pointer=data->elements;
+    printf("%9d \t %3d \t %10s \t %6s \t %d\n",(pointer+i)->id,
+    (pointer+i)->species,(pointer+i)->name,(pointer+i)->gender, (pointer+i)->age);
+  }
 }
