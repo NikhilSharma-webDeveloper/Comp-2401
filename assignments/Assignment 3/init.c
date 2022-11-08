@@ -1,5 +1,11 @@
 #include "defs.h"
 
+/*
+Function:   loadAnimalData
+ Purpose:   This function is used to load some data in our collection of the
+            animals
+  in/out:   AnimalArrayType* arr
+*/
 void loadAnimalData(AnimalArrayType *arr)
 {
   AnimalType a;
@@ -36,6 +42,5 @@ void loadAnimalData(AnimalArrayType *arr)
   addAnimal(arr, &a);
   initAnimal(1023, C_OTHER, "Ziggy", "F", 44, &a);
   addAnimal(arr, &a);
-  
-}
 
+}

@@ -1,0 +1,16 @@
+Program     :   Comp 2401 Assignment 3
+ Author     :   Nikhil Sharma 101284046
+   Date     :   8 November 2022
+Program     :   The program will present the end user with a menu of options to
+                manipulate a collection of animal data. The user will have the
+                option to add an animal to the collection, or remove an animal,
+                or print all the animals in the collection, or print only the
+                animals of a specific species.
+
+Source files:  main.c, animals.c, init.c
+Header files:  defs.h
+  Data Files:  n/a
+
+Compilation :  gcc -o result ./main.c ./animal.c ./init.c
+
+launching   : ./result

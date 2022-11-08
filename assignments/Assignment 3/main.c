@@ -3,6 +3,12 @@
 
 #include "defs.h"
 
+/*
+Function:   main
+ Purpose:   This function is the main function of the program control all the
+            functionality of the program according to the user choice
+  return:   Return 0 at the end of the program
+*/
 int main()
 {
    AnimalArrayType allAnimals;
@@ -106,6 +112,12 @@ int main()
 
 }
 
+/*
+Function:   speciesMenu
+ Purpose:   This function is used to give the species menu to the user and
+            return the option selected by the user
+  return:   Return the option selected by the user
+*/
 int speciesMenu(){
 
   int choice=0;
@@ -114,6 +126,12 @@ int speciesMenu(){
   return choice;
 }
 
+/*
+Function:   printMenu
+ Purpose:   This function is used to give the user with option, what user want
+            to do with the program
+     out:   choice
+*/
 void printMenu(int *choice)
 {
   int c = -1;
