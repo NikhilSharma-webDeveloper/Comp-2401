@@ -1,0 +1,16 @@
+OBJ = main.o cust.o bank.o acct.o
+
+result:	$(OBJ)
+		gcc -o result $(OBJ)
+
+main.o: main.c
+		gcc -c main.c
+
+bank.o: bank.c
+		gcc -c bank.c
+
+cust.o: cust.c
+		gcc -c cust.c
+
+clean:
+		rm $(OBJ)
