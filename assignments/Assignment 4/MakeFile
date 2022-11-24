@@ -12,5 +12,9 @@ bank.o: bank.c
 cust.o: cust.c
 		gcc -c cust.c
 
+acct.o: acct.c
+		gcc -c acct.c
+
 clean:
 		rm $(OBJ)
+

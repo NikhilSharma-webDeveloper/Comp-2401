@@ -7,21 +7,19 @@ int main()
 
   initBank(bankPtr);
   loadBankData(bankPtr);
-//printf("%d\n",bankPtr->customers);
 
   int choice=1;
   while(choice!=0){
     printMenu(&choice);
     if(choice==1){
-
+      printCustomers(&bankPtr->customers);
     }else if(choice ==2){
-
+      printAccounts(&bankPtr->accounts,1);
     }else if(choice==3){
-
-    }else{
-      break;
+      printByBalance(&bankPtr->accounts,1);
     }
   }
+  cleanupBank(bankPtr);
   return(0);
 }
 
@@ -51,3 +49,4 @@ void printMenu(int *choice)
 
   *choice = c;
 }
+

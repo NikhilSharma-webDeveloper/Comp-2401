@@ -47,31 +47,33 @@ typedef struct AcctList {
 } AcctListType;
 
 /*** Define the BankType here ***/
-typedef struct{
-  AcctListType *accounts;
-  CustArrayType *customers;
+typedef struct {
+  AcctListType accounts;
+  CustArrayType customers;
 }BankType;
 
 void printMenu(int*);
 
-void initAcctList(AcctListType *);
-void initAccount(int n, AcctEnumType at, CustomerType *c, float b, AccountType **acct);
-void addAccount(AcctListType *list, AccountType *acct);
-
-void addAccountByBalance(AcctListType *list, AccountType *acct);
-void printAccount(AccountType *acct);
-void cleanupAcctData(AcctListType *list);
-void cleanupAcctList(AcctListType *list);
-void printByBalance(AcctListType *orgList, int ends);
+//All the method declaration for the bank
+void initBank(BankType *ptr);
+void loadBankData(BankType *bank);
+void cleanupBank(BankType *b);
 
 
-
+//All the functions for customer
+void initCustomer(int id, char *name, CustomerType **cust);
 void initCustArray(CustArrayType *arr);
-void initCustomer(int id, char *n, CustomerType **cust);
-void addCustomer(CustArrayType **arr, CustomerType *c);
+void addCustomer(CustArrayType *arr, CustomerType *c);
 void printCustomers(CustArrayType *arr);
 void cleanupCustArray(CustArrayType *arr);
 
-void initBank(BankType *b);
-void cleanupBank(BankType *b);
-void loadBankData(BankType *bank);
+//All the function of the account related
+void initAccount(int n, AcctEnumType at, CustomerType *c, float b, AccountType **acct);
+void initAcctList(AcctListType *list);
+void addAccount(AcctListType *list, AccountType *acct);
+void printAccount(AccountType *acct);
+void printAccounts(AcctListType *list, int ends);
+void cleanupAcctData(AcctListType *list);
+void cleanupAcctList(AcctListType *list);
+void printByBalance(AcctListType *orgList, int ends);
+void addAccountByBalance(AcctListType *list, AccountType *acct);

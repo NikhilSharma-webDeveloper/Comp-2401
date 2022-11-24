@@ -1,0 +1,17 @@
+Program     :   Comp 2401 Assignment 4
+ Author     :   Nikhil Sharma 101284046
+   Date     :   24 November 2022
+Program     :   The program will present the end user with a menu of options to
+                manipulate bank data, including a collection of customers and
+                multiple collections of bank accounts. The user will have the
+                option to print all the customer data in the bank, including
+                each customer’s collection of accounts, or print all the account
+                data in the bank, ordered either by account number or by balance.
+
+Source files:  main.c, bank.c, cust.c, acct.c
+Header files:  defs.h
+  Data Files:  n/a
+
+Compilation :  gcc -o result ./main.c ./bank.c ./cust.c ./acct.c
+
+launching   : ./result
